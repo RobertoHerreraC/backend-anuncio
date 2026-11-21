@@ -1,0 +1,26 @@
+services:
+  backend_node_app:
+    container_name: backend_node_app
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "89:3000"
+    depends_on:
+      - postgres_bd_app
+  
+  postgres_bd_app:
+    container_name: postgres_bd_app
+    image: postgres:15-alpine
+    restart: always
+    ports:
+      - "5789:5432"
+    environment:
+      POSTGRES_DB: bd_anuncios
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin54321
+    volumes:
+       - postgres_bd_app: /var/lib/postgresql/data
+
+volumes:
+  postgres_bd_app:
