@@ -1,23 +1,31 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const { DataTypes } = require("sequelize");
 const sequelize = require("./conexion");
+
 const Categoria = sequelize.define(
-  'Categoria',
+  "Categoria",
   {
-    // Model attributes are defined here
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     nombre: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
+      validate: {
+        notEmpty: true,
+      },
     },
     descripcion: {
       type: DataTypes.TEXT,
-      // allowNull defaults to true
+      allowNull: true,
     },
   },
   {
-    // Other model options go here
+    tableName: "categorias",
+    timestamps: true,
   },
 );
 
-Categoria.sync();
-
-module.exports = Categoria
+module.exports = Categoria;

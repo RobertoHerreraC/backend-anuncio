@@ -8,6 +8,17 @@ services:
       - "89:3000"
     depends_on:
       - postgres_bd_app
+
+  frontend_angular_app:
+    container_name: frontend_angular_app
+    build:
+      context: ../frontend_anuncio
+      dockerfile: Dockerfile
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend_node_app
+    restart: always
   
   postgres_bd_app:
     container_name: postgres_bd_app
@@ -20,7 +31,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: admin54321
     volumes:
-       - postgres_bd_app: /var/lib/postgresql/data
+      - postgres_bd_app:/var/lib/postgresql/data
 
 volumes:
   postgres_bd_app:

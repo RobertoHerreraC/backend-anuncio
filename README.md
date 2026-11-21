@@ -1,12 +1,27 @@
 # Backend Anuncios
 
-API REST desarrollada con Node.js y Express (sin base de datos, los datos se almacenan en memoria y se pierden al reiniciar el servidor).
+API REST desarrollada con Node.js, Express, Sequelize y PostgreSQL. Las categorías y publicaciones persisten en la base de datos `bd_anuncios`.
 
 ## Requisitos
 
 - Node.js 18 o superior
+- PostgreSQL 15 (o Docker / Docker Compose)
 
 ## Instalación y ejecución
+
+Con Docker Compose (levanta la API, PostgreSQL y el frontend Angular):
+
+```bash
+docker compose up --build
+```
+
+Servicios expuestos:
+
+- Frontend: `http://localhost:4200` (nginx, con proxy `/api` al backend)
+- API: `http://localhost:89`
+- PostgreSQL: `localhost:5789`
+
+En local:
 
 ```bash
 npm install
@@ -20,6 +35,25 @@ Para desarrollo con reinicio automático:
 ```bash
 npm run dev
 ```
+
+## Frontend Angular
+
+La aplicación web está en el proyecto hermano [`../frontend_anuncio`](../frontend_anuncio) y consume esta API.
+
+Dentro de Docker Compose se compila y sirve con nginx en `http://localhost:4200`,
+redirigiendo `/api` al contenedor `backend_node_app` (sin necesidad de CORS ni
+configurar la URL del backend en el frontend).
+
+En local:
+
+```bash
+cd ../frontend_anuncio
+npm install
+npm start
+```
+
+Frontend: `http://localhost:4200` (usa `proxy.conf.json` hacia `http://127.0.0.1:89`).
+Más detalles en [`../frontend_anuncio/README.md`](../frontend_anuncio/README.md).
 
 ## Endpoints
 
@@ -81,6 +115,12 @@ curl -X POST http://127.0.0.1:3000/api/publicaciones \
   -d '{"titulo":"Bicicleta MTB","descripcion":"Rodado 29","precio":1200,"categoriaId":1}'
 ```
 
+Más ejemplos y respuestas de ejemplo en [`docs/ejemplos.md`](docs/ejemplos.md).
+Archivos para probar en VS Code / JetBrains HTTP Client:
+
+- [`docs/categoria.rest`](docs/categoria.rest)
+- [`docs/publicacion.rest`](docs/publicacion.rest)
+
 ## Códigos de respuesta
 
 - `200`: operación exitosa
@@ -97,9 +137,17 @@ src/
 ├── controllers/
 │   ├── categoria.controller.js
 │   └── publicacion.controller.js
-├── data/
-│   └── in-memory.js
+├── model/
+│   ├── conexion.js
+│   ├── Categoria.js
+│   ├── Publicacion.js
+│   └── index.js
 ├── router/
 │   └── index.js
 └── index.js
+
+docs/
+├── categoria.rest
+├── publicacion.rest
+└── ejemplos.md
 ```

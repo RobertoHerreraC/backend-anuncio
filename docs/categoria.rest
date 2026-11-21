@@ -1,14 +1,32 @@
+### Listar todas las categorías
+GET http://127.0.0.1:89/api/categorias
 
-###
-GET http://127.0.0.1:3000/api/categorias
+
+### Obtener una categoría por id
+GET http://127.0.0.1:89/api/categorias/1
 
 
-###
-POST http://127.0.0.1:3000/api/categorias
+### Crear una categoría
+POST http://127.0.0.1:89/api/categorias
 Content-Type: application/json
 Accept: application/json
 
 {
-    nombre: "Alquileres",
-    descripcion: "Publicacion sobre alquileres de oficinas"
+    "nombre": "Alquileres",
+    "descripcion": "Publicaciones sobre alquileres de oficinas"
 }
+
+
+### Actualizar una categoría (parcial o total)
+PUT http://127.0.0.1:3000/api/categorias/1
+Content-Type: application/json
+Accept: application/json
+
+{
+    "nombre": "Tecnología",
+    "descripcion": "Equipos, accesorios y servicios tecnológicos"
+}
+
+
+### Eliminar una categoría (409 si tiene publicaciones asociadas)
+DELETE http://127.0.0.1:3000/api/categorias/3

@@ -1,0 +1,39 @@
+### Listar todas las publicaciones
+GET http://127.0.0.1:3000/api/publicaciones
+
+
+### Listar con filtros (categoriaId y/o estado)
+GET http://127.0.0.1:3000/api/publicaciones?categoriaId=1&estado=activa
+
+
+### Obtener una publicación por id
+GET http://127.0.0.1:3000/api/publicaciones/1
+
+
+### Crear una publicación
+POST http://127.0.0.1:3000/api/publicaciones
+Content-Type: application/json
+Accept: application/json
+
+{
+    "titulo": "Bicicleta MTB",
+    "descripcion": "Rodado 29, en buen estado",
+    "precio": 1200,
+    "categoriaId": 1,
+    "estado": "activa"
+}
+
+
+### Actualizar una publicación (parcial o total)
+PUT http://127.0.0.1:3000/api/publicaciones/1
+Content-Type: application/json
+Accept: application/json
+
+{
+    "precio": 1000,
+    "estado": "pausada"
+}
+
+
+### Eliminar una publicación
+DELETE http://127.0.0.1:3000/api/publicaciones/1

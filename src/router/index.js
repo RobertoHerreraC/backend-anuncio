@@ -18,14 +18,14 @@ const {
 
 const Route = express.Router();
 
-// CRUD categoria sin BD
+// CRUD categoria con BD (PostgreSQL / Sequelize)
 Route.get("/categorias", listarCategorias);
 Route.get("/categorias/:id", obtenerCategoria);
 Route.post("/categorias", crearCategoria);
 Route.put("/categorias/:id", actualizarCategoria);
 Route.delete("/categorias/:id", eliminarCategoria);
 
-// CRUD publicacion sin BD
+// CRUD publicacion con BD (PostgreSQL / Sequelize)
 Route.get("/publicaciones", listarPublicaciones);
 Route.get("/publicaciones/:id", obtenerPublicacion);
 Route.post("/publicaciones", crearPublicacion);

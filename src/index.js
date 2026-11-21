@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const Route = require("./router");
+const { initDb } = require("./model");
 
 const app = express();
 
@@ -34,6 +35,12 @@ app.use(function (err, req, res, next) {
   return res.status(500).json({ mensaje: "Error interno del servidor" });
 });
 
-app.listen(PORT, function () {
-  console.log("Servidor iniciado en: http://127.0.0.1:" + PORT);
-});
+initDb()
+  .catch(function (error) {
+    console.error("ERROR AL INICIAR LA BASE DE DATOS:", error.message);
+  })
+  .finally(function () {
+    app.listen(PORT, function () {
+      console.log("Servidor iniciado en: http://127.0.0.1:" + PORT);
+    });
+  });
